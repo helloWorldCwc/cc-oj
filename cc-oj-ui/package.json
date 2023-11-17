@@ -1,0 +1,26 @@
+{
+  "name": "cc-oj-ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}"
+  },
+  "dependencies": {
+    "@arco-design/web-vue": "^2.53.2",
+    "axios": "^1.6.2",
+    "pinia": "^2.1.7",
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.3",
+    "prettier": "3.1.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.0.0-alpha.6",
+    "vue-tsc": "^1.8.22"
+  }
+}
