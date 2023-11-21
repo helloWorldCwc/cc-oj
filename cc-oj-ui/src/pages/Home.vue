@@ -5,9 +5,9 @@ dasdas
 
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import { useUserStore } from "../store/modules/user";
+import { useUserStore } from "@/store/modules/user";
 const userStore = useUserStore();
-console.log(userStore.userName);
+console.log(userStore.userInfo.userName);
 </script>
 
 <style scoped></style>
