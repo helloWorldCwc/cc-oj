@@ -65,3 +65,43 @@ create table if not exists post_favour
     index idx_postId (postId),
     index idx_userId (userId)
 ) comment '帖子收藏';
+
+
+-- 题目信息表 question_info
+create table if not exists question_info
+(
+    id         bigint auto_increment comment 'id' primary key,
+    title      varchar(512)                       null comment '标题',
+    content    text                               null comment '内容',
+    tags       varchar(1024)                      null comment '题目标签列表（json 数组）',
+    answer     text                               null comment '答案',
+    submitNum   int      default 0                 not null comment '提交数',
+    acceptedNum  int      default 0                 not null comment '通过数',
+    judgeCase    text                                  null comment '测试用例',
+    judgeConfig text                                 null comment '评测配置',
+    tips        text                                       null comment '题目提示',
+    acceptedRate int default 0                 not null comment '通过率',
+    userId     bigint                             not null comment '创建用户 id',
+    createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    isDelete   tinyint  default 0                 not null comment '是否删除',
+    index idx_userId (userId)
+) comment '题目信息' collate = utf8mb4_unicode_ci;
+
+-- 答案提交表 question_submit
+create table if not exists question_submit
+(
+    id         bigint auto_increment comment 'id' primary key,
+    language      varchar(512)                       null comment '提交语言',
+    questionId    bigint                              not null comment '题目id',
+    code       text                    not null comment '提交代码',
+    judgeInfo     text                               null comment '判题信息',
+    status      int                   default 0   not null comment '判题状态(0待判题，1判题中，2成功，3失败)',
+    userId     bigint                             not null comment '提交用户id',
+    createTime datetime default CURRENT_TIMESTAMP not null comment '创建时间',
+    updateTime datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
+    isDelete   tinyint  default 0                 not null comment '是否删除',
+    index idx_questionId (questionId),
+    index idx_userId (userId)
+) comment '题目提交' collate = utf8mb4_unicode_ci;
+
