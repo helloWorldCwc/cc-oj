@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span id="typed" style="white-space: pre-wrap;line-height: 30px;"></span>
+    <script>
+       const sse = new EventSource('http://localhost:8888/api/sse/cc')
+       sse.onopen = () => {
+        console.log(1111);
+       }
+       sse.onmessage = (msg) => {
+        console.log(msg.data);
+       }
+
+    </script>
+</body>
+</html>

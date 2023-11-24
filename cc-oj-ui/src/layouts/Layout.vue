@@ -41,7 +41,7 @@ import Menu from "./base/Menu.vue";
   margin-bottom: 10px;
 }
 #layout .content {
-  min-height: 100vh;
+  min-height: 90vh;
   margin-bottom: 10px;
 }
 #layout .footer {

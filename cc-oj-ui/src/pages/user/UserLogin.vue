@@ -1,5 +1,12 @@
 <template>
-  <div>
+  <div style="height: 90vh;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+    <div style="display: flex;justify-content: center;align-items: center;margin-bottom: 10px;">
+      <img style="height: 30px;" src="../../assets/logo.png" alt="">
+      <span style="color: #000;margin-left: 6px;">oj答题</span>
+    </div>
+    <div>
+      <h2>用户登录</h2>
+    </div>
     <a-form :model="form" :style="{ width: '600px' }" @submit="handleSubmit">
       <a-form-item
         field="userAccount"
@@ -13,10 +20,7 @@
         <a-input v-model="form.userPassword" placeholder="请输入密码" />
       </a-form-item>
       <a-form-item field="isRead">
-        <a-checkbox v-model="form.isRead"> 记住我 </a-checkbox>
-      </a-form-item>
-      <a-form-item>
-        <a-button html-type="submit">登 录</a-button>
+        <a-button html-type="submit" type="primary" style="width: 100px;">登 录</a-button>
       </a-form-item>
     </a-form>
   </div>

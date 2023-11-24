@@ -1,9 +1,9 @@
 <template>
     <div id="layout">
       <a-layout>
-        <a-layout-header class="header">
+        <!-- <a-layout-header class="header">
             用户相关
-        </a-layout-header>
+        </a-layout-header> -->
         <a-layout-content class="content">
           <RouterView />
         </a-layout-content>
@@ -36,17 +36,21 @@
     background-color: aliceblue;
   }
   #layout .header {
+    position: sticky;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
     margin-bottom: 10px;
   }
   #layout .content {
-    min-height: 100vh;
+    min-height: 90vh;
+    height: 100%;
     margin-bottom: 10px;
   }
   #layout .footer {
+    position: sticky;
     height: 50px;
     text-align: center;
     line-height: 50px;
+    bottom: 0;
   }
   </style>
   
