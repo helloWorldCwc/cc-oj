@@ -104,6 +104,7 @@ public class QuestionInfoServiceImpl extends ServiceImpl<QuestionInfoMapper, Que
     @Override
     public QuestionInfoVO getQuestionInfoVO(QuestionInfo questionInfo, HttpServletRequest request) {
         QuestionInfoVO questionInfoVO = QuestionInfoVO.objToVo(questionInfo);
+        questionInfoVO.setUser(userService.getUserVO(userService.getById(questionInfo.getUserId())));
         return questionInfoVO;
     }
 
@@ -114,8 +115,12 @@ public class QuestionInfoServiceImpl extends ServiceImpl<QuestionInfoMapper, Que
         if (CollectionUtils.isEmpty(questionInfoList)) {
             return questionInfoVOPage;
         }
+        List<Long> userIds = questionInfoList.stream().map(QuestionInfo::getUserId).collect(Collectors.toList());
+        Map<Long, User> userMap= userService.listByIds(userIds).stream().collect(Collectors.toMap(User::getId, user -> user));
         List<QuestionInfoVO> questionInfoVOList = questionInfoList.stream().map(questionInfo -> {
             QuestionInfoVO questionInfoVO = QuestionInfoVO.objToVo(questionInfo);
+            User user = userMap.get(questionInfo.getUserId());
+            questionInfoVO.setUser(userService.getUserVO(user));
             return questionInfoVO;
         }).collect(Collectors.toList());
         questionInfoVOPage.setRecords(questionInfoVOList);

@@ -46,12 +46,13 @@ public class QuestionInfoEditRequest implements Serializable {
     /**
      * 测试用例
      */
-    private String judgeCase;
+    private List<JudgeCase> judgeCaseList;
 
     /**
      * 评测配置
      */
-    private String judgeConfig;
+    private JudgeConfig judgeConfigDto;
+
 
 
     @TableField(exist = false)

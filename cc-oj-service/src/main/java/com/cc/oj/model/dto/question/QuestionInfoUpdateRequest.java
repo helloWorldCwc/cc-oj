@@ -1,7 +1,4 @@
 package com.cc.oj.model.dto.question;
-
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -36,16 +33,32 @@ public class QuestionInfoUpdateRequest implements Serializable {
      * 答案
      */
     private String answer;
-
     /**
      * 测试用例
      */
-    private String judgeCase;
+    private List<JudgeCase> judgeCaseList;
 
     /**
      * 评测配置
      */
-    private String judgeConfig;
+    private JudgeConfig judgeConfigDto;
+
+    /**
+     * 提交数
+     */
+    private Integer submitNum;
+
+    /**
+     * 通过数
+     */
+    private Integer acceptedNum;
+
+
+    /**
+     * 通过率
+     */
+    private Integer acceptedRate;
+
 
 
     private static final long serialVersionUID = 1L;

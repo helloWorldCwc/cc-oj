@@ -66,6 +66,8 @@ public class QuestionInfoInfoController {
         if (tags != null) {
             question.setTags(GSON.toJson(tags));
         }
+        question.setJudgeConfig(GSON.toJson(questionAddRequest.getJudgeConfigDto()));
+        question.setJudgeCase(GSON.toJson(questionAddRequest.getJudgeCaseList()));
         questionService.validQuestionInfo(question, true);
         User loginUser = userService.getLoginUser(request);
         question.setUserId(loginUser.getId());
@@ -118,6 +120,8 @@ public class QuestionInfoInfoController {
         if (tags != null) {
             question.setTags(GSON.toJson(tags));
         }
+        question.setJudgeConfig(GSON.toJson(questionUpdateRequest.getJudgeConfigDto()));
+        question.setJudgeCase(GSON.toJson(questionUpdateRequest.getJudgeCaseList()));
         // 参数校验
         questionService.validQuestionInfo(question, false);
         long id = questionUpdateRequest.getId();
@@ -210,6 +214,8 @@ public class QuestionInfoInfoController {
         if (tags != null) {
             question.setTags(GSON.toJson(tags));
         }
+        question.setJudgeConfig(GSON.toJson(questionEditRequest.getJudgeConfigDto()));
+        question.setJudgeCase(GSON.toJson(questionEditRequest.getJudgeCaseList()));
         // 参数校验
         questionService.validQuestionInfo(question, false);
         User loginUser = userService.getLoginUser(request);

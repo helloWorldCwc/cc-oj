@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.cc.oj.common.PageRequest;
 import lombok.Data;
 
 /**
@@ -14,7 +16,7 @@ import lombok.Data;
  */
 @TableName(value ="question_submit")
 @Data
-public class QuestionSubmit implements Serializable {
+public class QuestionSubmit  implements Serializable {
     /**
      * id
      */

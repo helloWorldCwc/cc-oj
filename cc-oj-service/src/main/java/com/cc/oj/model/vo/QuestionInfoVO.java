@@ -1,8 +1,11 @@
 package com.cc.oj.model.vo;
 
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.cc.oj.model.dto.question.JudgeCase;
+import com.cc.oj.model.dto.question.JudgeConfig;
 import com.cc.oj.model.entity.QuestionInfo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,7 +45,7 @@ public class QuestionInfoVO implements Serializable {
     /**
      * 题目标签列表（json 数组）
      */
-    private String tags;
+    private List<String> tags;
     
 
     /**
@@ -58,12 +61,12 @@ public class QuestionInfoVO implements Serializable {
     /**
      * 测试用例
      */
-    private String judgeCase;
+    private List<JudgeCase> judgeCaseList;
 
     /**
      * 评测配置
      */
-    private String judgeConfig;
+    private JudgeConfig judgeConfigDto;
 
     /**
      * 题目提示
@@ -74,6 +77,11 @@ public class QuestionInfoVO implements Serializable {
      * 通过率
      */
     private Integer acceptedRate;
+    /**
+     * 创建人信息
+     */
+
+    private UserVO user;
 
     
 
@@ -114,6 +122,8 @@ public class QuestionInfoVO implements Serializable {
         BeanUtils.copyProperties(question, questionVO);
         questionVO.setTags(GSON.fromJson(question.getTags(), new TypeToken<List<String>>() {
         }.getType()));
+        questionVO.setJudgeCaseList(JSONUtil.toList(question.getJudgeCase(), JudgeCase.class));
+        questionVO.setJudgeConfigDto(JSONUtil.toBean(question.getJudgeConfig(), JudgeConfig.class));
         return questionVO;
     }
 }
