@@ -24,7 +24,7 @@
 
 
 <script setup lang="ts">
-import {ref, reactive, onMounted} from 'vue'
+import {ref, onMounted} from 'vue'
 import {QuestionInfoInfoControllerService} from '@/apis/services/QuestionInfoInfoControllerService.ts'
 import { Message } from '@arco-design/web-vue';
 import { useRouter } from 'vue-router';
@@ -104,6 +104,10 @@ const changeCurrent = (current: number) => {
       queryParams.value.current = current
       getData();
 }
+// 当getData函数所涉及到的变量发生变换，函数就会执行一次
+// watchEffect(() => {
+//     getData()
+// })
 onMounted(() => {
     getData()
 })

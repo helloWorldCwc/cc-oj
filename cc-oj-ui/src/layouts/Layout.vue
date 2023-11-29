@@ -2,7 +2,9 @@
   <div id="layout">
     <a-layout>
       <a-layout-header class="header">
-        <Menu> </Menu>
+        <div class="menu-style">
+          <Menu> </Menu>
+        </div>
       </a-layout-header>
       <a-layout-content class="content">
         <RouterView />
@@ -28,17 +30,22 @@ import Menu from "./base/Menu.vue";
   #eaf490,
   #c5e0b4);
 }
-#layout .header, 
-#layout .content,
-#layout .footer {
+#layout .content
+ {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  background-color: aliceblue;
+  
+}
+#layout .header .menu-style {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 #layout .header {
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
   margin-bottom: 10px;
+  background-color: #fff;
+
 }
 #layout .content {
   box-sizing: border-box;
@@ -53,5 +60,6 @@ import Menu from "./base/Menu.vue";
   height: 50px;
   text-align: center;
   line-height: 50px;
+  background-color: #fff;
 }
 </style>
