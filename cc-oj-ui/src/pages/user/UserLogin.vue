@@ -28,9 +28,10 @@
 
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import { userLogin } from '@/apis/user.ts'
+// import { userLogin } from '@/apis/user.ts'
 import { useRouter, useRoute } from "vue-router";
 import { Message } from '@arco-design/web-vue';
+import {UserControllerService} from '@/apis/services/UserControllerService.ts'
 const form = reactive({
   userAccount: "ccDog",
   userPassword: "12345678",
@@ -39,7 +40,7 @@ const form = reactive({
 const router = useRouter();
 const route = useRoute();
 const handleSubmit = async () => {
-  const res = await userLogin(form);
+  const res = await UserControllerService.userLoginUsingPost(form);
   if(res.code === 0){
     Message.success('登录成功')
     router.replace({

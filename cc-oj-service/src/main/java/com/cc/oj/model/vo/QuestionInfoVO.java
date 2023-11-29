@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.cc.oj.model.dto.question.JudgeCase;
 import com.cc.oj.model.dto.question.JudgeConfig;
 import com.cc.oj.model.entity.QuestionInfo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.Data;
@@ -82,8 +83,9 @@ public class QuestionInfoVO implements Serializable {
      */
 
     private UserVO user;
-
-    
+    private String answer;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

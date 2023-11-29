@@ -59,6 +59,8 @@ public class QuestionInfoUpdateRequest implements Serializable {
      */
     private Integer acceptedRate;
 
+    private String tips;
+
 
 
     private static final long serialVersionUID = 1L;

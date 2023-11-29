@@ -41,10 +41,15 @@ import Menu from "./base/Menu.vue";
   margin-bottom: 10px;
 }
 #layout .content {
+  box-sizing: border-box;
   min-height: 90vh;
   margin-bottom: 10px;
+  padding: 15px;
+  background-color: #fff;
 }
 #layout .footer {
+  position: sticky;
+  bottom: 0;
   height: 50px;
   text-align: center;
   line-height: 50px;
