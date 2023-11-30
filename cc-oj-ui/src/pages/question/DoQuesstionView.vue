@@ -1,7 +1,7 @@
 <template>
     <div id="question-submit-style">
         <a-row :gutter="24">
-          <a-col :span="12">
+          <a-col  :xs="24" :lg="12">
             <a-tabs default-active-key="viewer">
             <a-tab-pane key="viewer" title="详情">
                 <a-card>
@@ -37,7 +37,7 @@
         </a-tabs>
       
           </a-col>
-          <a-col :span="12">
+          <a-col   :xs="24" :lg="12">
             <a-card :bordered="false">
                 <a-form :model="submitFormData" label-align="left">
                     <a-form-item label="编程语言"   >
