@@ -5,6 +5,7 @@ import NotAuth from "@/pages/error/401.vue";
 import AuthEnmu from '@/constant/AuthEnmu'
 import UserLogin from "@/pages/user/UserLogin.vue";
 import QuestionUpdate from "@/pages/question/QuestionUpdate.vue";
+import DoQuesstionView from "@/pages/question/DoQuesstionView.vue";
 import QuestionList from "@/pages/question/QuestionList.vue";
 import UserRegister from "@/pages/user/UserRegister.vue";
 import UserLayout from '@/layouts/userBase/UserLayout.vue'
@@ -59,6 +60,16 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                      isVisible: true,
                      isAccess: AuthEnmu.ADMIN,
+                } 
+            },
+            { 
+                path: "question/doQuestion/:questionId", 
+                name: '题目作答',
+                component: DoQuesstionView, 
+                props: true,
+                meta: {
+                     isVisible: false,
+                     isAccess: AuthEnmu.USER,
                 } 
             },
         ]

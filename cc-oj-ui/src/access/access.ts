@@ -17,13 +17,19 @@ router.beforeEach(async (to, from, next) => {
     const userStore =   useUserStore()
     await userStore.loginUser(); // 尝试获取登录信息
     const {userInfo: {role}}  = userStore;
-    if(to.meta.isAccess && to.meta.isAccess === AuthEnmu.ADMIN){
+    if(to.meta.isAccess){
         // 尝试获取信息失败，跳转到登录页
         if(!role){
             return next('/user/login?redirect=' + to.fullPath)
         }
-        if(role !== AuthEnmu.ADMIN){
+        if(role == AuthEnmu.ADMIN){
+            return next();
+        }
+        if(to.meta.isAccess === AuthEnmu.ADMIN && role !== AuthEnmu.ADMIN){
             return next('/401');
+        }
+        if(to.meta.isAccess === AuthEnmu.USER && role !== AuthEnmu.USER){
+            return next('/user/login?redirect=' + to.fullPath)
         }
     }
     next()

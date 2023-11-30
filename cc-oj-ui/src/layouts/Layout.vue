@@ -45,7 +45,6 @@ import Menu from "./base/Menu.vue";
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
   margin-bottom: 10px;
   background-color: #fff;
-
 }
 #layout .content {
   box-sizing: border-box;
@@ -61,5 +60,6 @@ import Menu from "./base/Menu.vue";
   text-align: center;
   line-height: 50px;
   background-color: #fff;
+  z-index: 999;
 }
 </style>

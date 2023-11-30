@@ -110,7 +110,7 @@ const doSubmit = async () => {
         // 清空表单
         resetData()
       }else {
-        Message.success('添加失败，', res.message);
+        Message.error('添加失败，' + res.message);
       }
     }
    
