@@ -2,6 +2,9 @@ package com.cc.oj.service.impl;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cc.oj.constant.CommonConstant;
+import com.cc.oj.judge.JudgeService;
+import com.cc.oj.judge.codesandbox.impl.ExampleCodeSandBoxImpl;
+import com.cc.oj.judge.impl.JudgeServiceImpl;
 import com.cc.oj.model.dto.question.submit.QuestionSubmitJudgeInfo;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +33,9 @@ import com.cc.oj.service.QuestionInfoService;
 import com.cc.oj.service.QuestionSubmitService;
 import com.cc.oj.service.UserService;
 import com.cc.oj.utils.SqlUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,15 +47,17 @@ import javax.annotation.Resource;
 * @createDate 2023-11-23 14:39:45
 */
 @Service
+@Slf4j
 public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper, QuestionSubmit>
     implements QuestionSubmitService{
     @Resource
     private UserService userService;
     @Resource
     private QuestionInfoService questionInfoService;
+    @Resource
+    private JudgeService judgeService;
 
     @Override
-    @Transactional
     public int doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser) {
         QuestionSubmit questionSubmit = BeanUtil.copyProperties(questionSubmitAddRequest, QuestionSubmit.class);
         questionSubmit.setUserId(loginUser.getId());
@@ -64,6 +71,11 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         boolean save = save(questionSubmit);
         ThrowUtils.throwIf(!save, ErrorCode.SYSTEM_ERROR);
         // TODO 判题服务执行
+        new Thread(()->{
+            // 代码体
+            judgeService.doJudgeSubmit(questionSubmit.getId());
+            log.info("判题机开始执行啦");
+        }, "judgeService").start();
         return 1;
     }
 

@@ -15,6 +15,7 @@ import com.cc.oj.judge.manager.JudgeManager;
 import com.cc.oj.judge.strategy.JudgeStrategy;
 import com.cc.oj.judge.strategy.impl.DefaultJudgeStrategy;
 import com.cc.oj.judge.strategy.impl.JavaJudgeStrategy;
+import com.cc.oj.mapper.QuestionSubmitMapper;
 import com.cc.oj.model.dto.question.JudgeCase;
 import com.cc.oj.model.dto.question.JudgeConfig;
 import com.cc.oj.model.dto.question.submit.JudgeInfo;
@@ -25,6 +26,7 @@ import com.cc.oj.model.enums.QuestionSubmitLanguageEnum;
 import com.cc.oj.model.enums.QuestionSubmitStatusEnum;
 import com.cc.oj.service.QuestionInfoService;
 import com.cc.oj.service.QuestionSubmitService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,8 +38,8 @@ import javax.annotation.Resource;
  */
 @Service
 public class JudgeServiceImpl implements JudgeService {
-    @Resource
-    private QuestionSubmitService questionSubmitService;
+    @Autowired
+    private QuestionSubmitMapper questionSubmitMapper;
     @Resource
     private QuestionInfoService questionInfoService;
     @Resource
@@ -45,12 +47,13 @@ public class JudgeServiceImpl implements JudgeService {
     @Override
     public void doJudgeSubmit(long questionSubmitId) {
         // 1. 传入题目提交id, 便于获取题目提交相信信息(以及题目的相关信息)
-        QuestionSubmit questionSubmit = questionSubmitService.getById(questionSubmitId);
-        Long id = questionSubmit.getId();
+        QuestionSubmit questionSubmit = questionSubmitMapper.selectById(questionSubmitId);
+        if(questionSubmit == null){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "题目提交信息不存在");
+        }
         String language = questionSubmit.getLanguage();
         Long questionId = questionSubmit.getQuestionId();
         String code = questionSubmit.getCode();
-        String judgeInfo = questionSubmit.getJudgeInfo();
         Integer status = questionSubmit.getStatus();
         // 题目相关信息学
         QuestionInfo questionInfo = questionInfoService.getById(questionId);
@@ -85,6 +88,6 @@ public class JudgeServiceImpl implements JudgeService {
         qsb.setId(questionSubmitId);
         qsb.setStatus(executeCodeResponse.getStatus());
         qsb.setJudgeInfo(JSONUtil.toJsonStr(strategyJudgeInfo));
-        questionSubmitService.updateById(qsb);
+        questionSubmitMapper.updateById(qsb);
     }
 }
