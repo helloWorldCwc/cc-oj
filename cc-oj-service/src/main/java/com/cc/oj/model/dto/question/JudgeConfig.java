@@ -11,5 +11,4 @@ import lombok.Data;
 public class JudgeConfig {
     private Integer timeLimit;
     private Integer memoryLimit;
-
 }
