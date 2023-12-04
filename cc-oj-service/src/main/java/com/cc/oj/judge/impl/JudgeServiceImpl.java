@@ -7,6 +7,7 @@ import com.cc.oj.common.ErrorCode;
 import com.cc.oj.exception.BusinessException;
 import com.cc.oj.judge.JudgeService;
 import com.cc.oj.judge.codesandbox.CodeSandBox;
+import com.cc.oj.judge.codesandbox.CodeSandBoxFactory;
 import com.cc.oj.judge.codesandbox.impl.ExampleCodeSandBoxImpl;
 import com.cc.oj.judge.codesandbox.model.ExecuteCodeRequest;
 import com.cc.oj.judge.codesandbox.model.ExecuteCodeResponse;
@@ -27,6 +28,7 @@ import com.cc.oj.model.enums.QuestionSubmitStatusEnum;
 import com.cc.oj.service.QuestionInfoService;
 import com.cc.oj.service.QuestionSubmitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -44,6 +46,9 @@ public class JudgeServiceImpl implements JudgeService {
     private QuestionInfoService questionInfoService;
     @Resource
     private JudgeManager judgeManager;
+    @Value("${judge.type:example}")
+    private String type;
+
     @Override
     public void doJudgeSubmit(long questionSubmitId) {
         // 1. 传入题目提交id, 便于获取题目提交相信信息(以及题目的相关信息)
@@ -69,7 +74,7 @@ public class JudgeServiceImpl implements JudgeService {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "无需判题");
         }
         // 3. 执行代码沙箱(获取执行的结果)
-        CodeSandBox codeSandBox = new ExampleCodeSandBoxImpl();
+        CodeSandBox codeSandBox = CodeSandBoxFactory.newInstance(type);
         List<String> inputList =  judgeCaseList.stream().map(JudgeCase::getInput).collect(Collectors.toList());
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
@@ -81,6 +86,7 @@ public class JudgeServiceImpl implements JudgeService {
         JudgeContext judgeContext = new JudgeContext();
         judgeContext.setExecuteCodeResponse(executeCodeResponse);
         judgeContext.setQuestionInfo(questionInfo);
+        judgeContext.setLanguage(language);
         // 代码简化
         JudgeInfo strategyJudgeInfo = judgeManager.doJudge(judgeContext);
         // 修改判题状态
