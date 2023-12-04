@@ -1,7 +1,8 @@
 {
   "name": "cc-oj-ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "在线判题系统",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",

@@ -31,10 +31,11 @@ const routes: RouteRecordRaw[] = [
             },
             {
                 path: "see/question",
-                 name: '浏览题目',
+                 name: '题目管理',
                  component: QuestionList,
                  meta: {
-                   isVisible: true
+                   isVisible: true,
+                   isAccess: AuthEnmu.ADMIN,
                } 
            },
             {
